@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <style>
+      html {
+        font-family: Arial;
+        display: inline-block;
+        margin: 0px auto;
+        text-align: center;
+      }
+      h2 {
+        font-size: 3rem;
+      }
+      p {
+        font-size: 3rem;
+      }
+      .units {
+        font-size: 1.2rem;
+      }
+      .dht-labels {
+        font-size: 1.5rem;
+        vertical-align: middle;
+        padding-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>ESP32 TEST MULTI TASK READ</h2>
+    <p>
+      <i class="fas fa-thermometer-half" style="color:#059e8a;"></i>
+      <span class="dht-labels">Sensor1</span>
+      <span id="sensor1">%SENSOR1%</span>
+      <sup class="units">&deg;C</sup>
+    </p>
+    <p>
+      <i class="fas fa-tint" style="color:#00add6;"></i>
+      <span class="dht-labels">Sensor2</span>
+      <span id="sensor2">%SENSOR2%</span>
+      <sup class="units">%</sup>
+    </p>
+    <p>
+      <i class="fas fa-snowflake" style="color:#9e0505;"></i>
+      <span class="dht-labels">Contador1</span>
+      <span id="count1">%COUNT1#%</span>
+    </p>
+    <p>
+      <i class="fas fa-flask" style="color:#66059e;"></i>
+      <span class="dht-labels">Contador2</span>
+      <span id="sensor1">%COUNT#2%</span>
+    </p>
+  </body>
+  <script>
+    setInterval(function() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("sensor1").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "/sensor1", true);
+      xhttp.send();
+    }, 100);
+
+    setInterval(function() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("sensor2").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "/sensor2", true);
+      xhttp.send();
+    }, 100);
+
+    setInterval(function() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("count1").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "/count1", true);
+      xhttp.send();
+    }, 100);
+  </script>
+</html>
